@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AllCardInfo"
+    android:background="#e1d8c4"
+    tools:showIn="@layout/activity_all_card_info">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/card_bg_info"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/platinum"
+            android:layout_marginTop="30dp"
+            />
+        <TextView
+            android:layout_marginTop="-85dp"
+            android:id="@+id/card_number_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4111-1111-1111-1115"
+            android:textSize="13sp"
+            android:textColor="#acacac"
+            android:textScaleX="1.7" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Credit Card Number:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/card_number_info_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:text="4111-1111-1111-1111"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Credit Card Type:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/type_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:text="Platinum"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/current_location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Location:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/current_location_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:text="Lingunan, Valenzuela City"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/destination_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Destination:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/destination_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:text="Caloocan City"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Area:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/area_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:text="Caloocan City"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="Status:"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="serif-monospace"
+            android:textColor="@color/colorPrimary"/>
+        <ImageView
+            android:id="@+id/status_img"
+            android:layout_width="350dp"
+            android:layout_height="100dp" />
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
