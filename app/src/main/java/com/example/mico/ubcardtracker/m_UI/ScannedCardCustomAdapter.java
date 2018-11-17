@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,14 +32,15 @@ import com.example.mico.ubcardtracker.FragmentScanned;
 import com.example.mico.ubcardtracker.INodeJS;
 import com.example.mico.ubcardtracker.R;
 import com.example.mico.ubcardtracker.RetrofitClient;
+import com.example.mico.ubcardtracker.m_DataObject.Cards;
 import com.example.mico.ubcardtracker.m_DataObject.ScannedCards;
+import com.google.gson.Gson;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -54,7 +56,6 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
     private AlertDialog dialog;
     private ProgressBar progress;
     private Spinner CourierSpinner;
-    private String cardNumber,area,destination,type;
     public ScannedCardCustomAdapter(Context c, ArrayList<ScannedCards> scanned_cards) {
         this.c = c;
         this.scanned_cards = scanned_cards;
@@ -76,7 +77,7 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(c).inflate(R.layout.model_scanned_cards, parent, false);
         }
@@ -87,10 +88,10 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
 
         final ScannedCards scanned_card = (ScannedCards) this.getItem(position);
 
-        cardNumber = scanned_card.getCard_number();
-        type = scanned_card.getType();
-        area = scanned_card.getArea();
-        destination = scanned_card.getArea();
+        final String cardNumber = scanned_card.getCard_number();
+        String type = scanned_card.getType();
+        final String area = scanned_card.getArea();
+        final String destination = scanned_card.getDestination();
 
         CardNumber.setText(scanned_card.getCard_number());
 
@@ -106,7 +107,7 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
         Deliver.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                showDeliver();
+                showDeliver(position,cardNumber,area,destination);
             }
         });
 
@@ -130,14 +131,20 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
         i.putExtra("AREA_KEY",area);
         c.startActivity(i);
     }
-    private void showDeliver(){
+    private void showDeliver(int index,String cardNumber,String area,String destination){
+
+        final int indexHolder = index;
+        final String cardNumberHolder = cardNumber;
+        final String areaHolder = area;
+        final String destinationHolder = destination;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.deliver_dialog, null);
 
         CourierSpinner = view.findViewById(R.id.courier_spin);
         String[] arraySpinner = new String[] {
-                "PRC", "Intervolt", "Safe Frates", "LBC"
+                "PRC", "Intervolve Express", "Safe Freight", "LBC"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(c,
                 android.R.layout.simple_spinner_item, arraySpinner);
@@ -160,15 +167,16 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
         });
         dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
-                deliverCard();
+                deliverCard(indexHolder,cardNumberHolder,areaHolder,destinationHolder);
             }
         });
     }
-    private void deliverCard(){
+    private void deliverCard(final int index,final String cardNumber, final String area, final String destination){
         final String company = CourierSpinner.getSelectedItem().toString();
         final String url = Config.SELECT_DELIVER_CARD_URL;
         final RequestQueue requestQueue = Volley.newRequestQueue(c);
@@ -176,20 +184,23 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.equalsIgnoreCase("Successfully Deliver Card")) {
-                            FragmentScanned.swipeRefreshLayout.setRefreshing(true);
-                            Toast.makeText(c,"Deliver Successfully",Toast.LENGTH_SHORT);
+                        if(response.equalsIgnoreCase("Successfully Delivered Card")) {
+                            Toast.makeText(c,"Successfully Deliverd",Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            scanned_cards.remove(index);
+                            //eto par haha gusto ko sana malaman ko yung index nung may cardNumber na paano kaya yun par
+                            notifyDataSetChanged();
                         }
                         else
                         {
-                            Toast.makeText(c,"Failed to Deliver",Toast.LENGTH_SHORT);
+                            Toast.makeText(c,"Failed to Deliver",Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(c,"No Internet Connection",Toast.LENGTH_SHORT);
+                        Toast.makeText(c,"No Internet Connection",Toast.LENGTH_SHORT).show();
                     }
 
                 }){

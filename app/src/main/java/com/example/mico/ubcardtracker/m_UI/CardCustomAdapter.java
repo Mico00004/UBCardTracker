@@ -66,6 +66,8 @@ public class CardCustomAdapter extends BaseAdapter {
         if(type.contentEquals("Classic"))
         {
             CardBG.setImageResource(R.drawable.classic);
+            CardNumber.setTextColor(Color.WHITE);
+
         }
 
 

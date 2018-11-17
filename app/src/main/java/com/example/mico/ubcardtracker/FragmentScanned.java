@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.mico.ubcardtracker.m_MySQL.CardDownloader;
 import com.example.mico.ubcardtracker.m_MySQL.ScannedCardDownloader;
 
 public class FragmentScanned extends Fragment {
 
+    public static ListView scanned_card_Lv;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class FragmentScanned extends Fragment {
 
         final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.sw1);
         final String urlAddress = Config.SELECT_SCANNED_CARDS_URL;
-        final ListView scanned_card_Lv = view.findViewById(R.id.scanned_cards_lv);
+        scanned_card_Lv = view.findViewById(R.id.scanned_cards_lv);
         new ScannedCardDownloader(getActivity(), urlAddress, scanned_card_Lv,swipeRefreshLayout).execute();
         Log.wtf("Download","Data");
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

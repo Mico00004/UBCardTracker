@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.mico.ubcardtracker.m_DataObject.ScannedCards;
+import com.google.gson.Gson;
+
 public class AllCardInfo extends AppCompatActivity {
 
     private TextView CardNumber,CardNumberDetail,Type,CurrentLocation,Destination,Area;
@@ -37,6 +40,7 @@ public class AllCardInfo extends AppCompatActivity {
         Status = findViewById(R.id.status_img);
         CurrentLocationLayout = findViewById(R.id.current_location_layout);
         DestinationLayout = findViewById(R.id.destination_layout);
+
 
         Intent i = this.getIntent();
         String card_number = i.getExtras().getString("CARD_NUMBER_KEY");
@@ -70,7 +74,7 @@ public class AllCardInfo extends AppCompatActivity {
         {
             Status.setImageResource(R.drawable.scanned);
         }
-        else if (status.contentEquals("On-Delivery"))
+        else if (status.contentEquals("On-Delivery") || status.contentEquals("Pending for Delivery"))
         {
             Status.setImageResource(R.drawable.ondelivery);
         }
