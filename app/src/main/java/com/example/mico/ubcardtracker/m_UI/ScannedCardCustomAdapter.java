@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mico.ubcardtracker.AllCardInfo;
 import com.example.mico.ubcardtracker.Config;
+import com.example.mico.ubcardtracker.FragmentScanned;
 import com.example.mico.ubcardtracker.INodeJS;
 import com.example.mico.ubcardtracker.R;
 import com.example.mico.ubcardtracker.RetrofitClient;
@@ -52,7 +54,7 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
     private AlertDialog dialog;
     private ProgressBar progress;
     private Spinner CourierSpinner;
-    private String CardNumber,Area,Destination;
+    private String cardNumber,area,destination,type;
     public ScannedCardCustomAdapter(Context c, ArrayList<ScannedCards> scanned_cards) {
         this.c = c;
         this.scanned_cards = scanned_cards;
@@ -85,7 +87,11 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
 
         final ScannedCards scanned_card = (ScannedCards) this.getItem(position);
 
-        String type = scanned_card.getType();
+        cardNumber = scanned_card.getCard_number();
+        type = scanned_card.getType();
+        area = scanned_card.getArea();
+        destination = scanned_card.getArea();
+
         CardNumber.setText(scanned_card.getCard_number());
 
         if (type.contentEquals("Platinum")){
@@ -158,33 +164,46 @@ public class ScannedCardCustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
+                deliverCard();
             }
         });
     }
-    /*private void deliverCard(){
+    private void deliverCard(){
+        final String company = CourierSpinner.getSelectedItem().toString();
         final String url = Config.SELECT_DELIVER_CARD_URL;
         final RequestQueue requestQueue = Volley.newRequestQueue(c);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        if(response.equalsIgnoreCase("Successfully Deliver Card")) {
+                            FragmentScanned.swipeRefreshLayout.setRefreshing(true);
+                            Toast.makeText(c,"Deliver Successfully",Toast.LENGTH_SHORT);
+                        }
+                        else
+                        {
+                            Toast.makeText(c,"Failed to Deliver",Toast.LENGTH_SHORT);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(c,"No Internet Connection",Toast.LENGTH_SHORT);
                     }
 
                 }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
+                params.put("company",company);
+                params.put("card_number",cardNumber);
+                params.put("area",area);
+                params.put("destination",destination);
                 return params;
             }};
         requestQueue.add(stringRequest);
-    }*/
+    }
     private void sendMessageonNem(String address,String amount,String message){
         Retrofit retrofit = RetrofitClient.getInstance();
         myAPI = retrofit.create(INodeJS.class);
