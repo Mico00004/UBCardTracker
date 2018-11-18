@@ -1,13 +1,23 @@
 package com.example.mico.ubcardtracker;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.PermissionRequest;
 import android.widget.ImageView;
 
 public class FragmentHome extends Fragment {
@@ -23,7 +33,12 @@ public class FragmentHome extends Fragment {
         ScanImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),ScanCardActivity.class));
+                FragmentScan fragmentScan = new FragmentScan();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_frame, fragmentScan);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         MyAccountImage.setOnClickListener(new View.OnClickListener() {
@@ -57,4 +72,5 @@ public class FragmentHome extends Fragment {
 
 
     }
+
 }

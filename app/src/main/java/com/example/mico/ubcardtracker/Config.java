@@ -7,6 +7,7 @@ public class Config {
     public static final String SELECT_ALL_CARDS_URL = "http://clydcstd.000webhostapp.com/select_all_cards.php";
     public static final String SELECT_SCANNED_CARDS_URL = "http://clydcstd.000webhostapp.com/select_scanned_cards.php";
     public static final String SELECT_DELIVER_CARD_URL = "http://clydcstd.000webhostapp.com/deliver_card.php";
+    public static final String SCAN_URL = "http://clydcstd.000webhostapp.com/scan.php";
 
     //Save User info
     public static final String ID_SHARED_PREF = "id";

@@ -1,6 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backGround"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <LinearLayout
+
+        android:id="@+id/scan_card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card Number:"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/scan_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:paddingBottom="6dp"
+            android:editable="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="italic"
+            android:text="Double tap the card number to run the Scanner"
+            android:layout_marginBottom="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card Type:"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+        <Spinner
+            android:id="@+id/scan_card_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:layout_marginBottom="15dp"
+            android:paddingBottom="6dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client Address:"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/scan_client_address"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:layout_marginBottom="15dp"
+            android:paddingBottom="6dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Area:"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+        <Spinner
+            android:id="@+id/scan_area"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:layout_marginBottom="30dp"
+            android:paddingBottom="6dp"/>
+
+        <Button
+            android:id="@+id/save_scan"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save"
+            android:textColor="#fff"
+            android:background="@drawable/button_border"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/cancel_scan"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimary"
+        android:background="#00ffffff"/>
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/scan_card_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Processing..."
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"/>
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

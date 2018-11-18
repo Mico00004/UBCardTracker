@@ -22,7 +22,7 @@ public class ScanCardActivity extends AppCompatActivity implements ZXingScannerV
     }
     @Override
     public void handleResult(Result result) {
-        FragmentScan.ScanCardNumber = result.getText();
+        FragmentScan.ScanCardNumber.setText(result.getText());
         onBackPressed();
     }
 
